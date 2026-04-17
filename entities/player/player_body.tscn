@@ -26,6 +26,11 @@ _limits = [0.0, 1.0, 0.0, 0.103225805]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.01431842, 0), 0.0, 0.0, 0, 0, Vector2(0.103225805, 0), 0.0, 0.0, 0, 0]
 point_count = 3
 
+[sub_resource type="Curve" id="Curve_amj2m"]
+_limits = [-25000.0, 20000.0, 0.0, 0.31]
+_data = [Vector2(0.137, 7828.3477), 0.0, 0.0, 0, 0, Vector2(0.16299999, -14993.498), 0.0, 0.0, 0, 0, Vector2(0.19700001, 728.2207), 0.0, 0.0, 0, 0]
+point_count = 3
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_cgs3i"]
 atlas = ExtResource("2_ejhrd")
 region = Rect2(0, 0, 32, 32)
@@ -97,6 +102,8 @@ jump_vel = SubResource("Curve_cgs3i")
 wall_kickoff = SubResource("Curve_w5sqq")
 walljump_strength = 600.0
 controllability = SubResource("Curve_uokb1")
+dash_profile = SubResource("Curve_amj2m")
+dash_time = 0.27
 
 [node name="Sprite" type="Node2D" parent="." unique_id=1126119417]
 script = ExtResource("2_cgs3i")
@@ -105,7 +112,7 @@ script = ExtResource("2_cgs3i")
 texture_filter = 1
 scale = Vector2(0.625, 0.625)
 sprite_frames = SubResource("SpriteFrames_s0ucb")
-frame_progress = 0.277
+frame_progress = 0.0022162667
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1664352351]
 visible = false
@@ -142,3 +149,8 @@ one_shot = true
 [node name="JumpTimer" type="Timer" parent="." unique_id=360931541]
 wait_time = 0.1
 one_shot = true
+
+[node name="DashTimer" type="Timer" parent="." unique_id=494005186]
+one_shot = true
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]

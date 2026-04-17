@@ -16,14 +16,19 @@ class_name Player
 @export var wall_kickoff: Curve
 @export var walljump_strength := 400.0
 @export var controllability: Curve
+@export var dash_profile: Curve
+@export var dash_time: float = 1.3
 
 var cur_friction
+var frozen_velocity: Vector2 # for dash
+var dashing: bool = false
 
 #Movement Variables
 var leftMove := false
 var rightMove := false
 var isMoving := false
 var jumpMove := false
+var dashMove := false
 
 #Timer
 @onready var coy_timer: Timer = get_node("CoyoteTimer")
@@ -31,6 +36,8 @@ var jumpMove := false
 @onready var jump_timer: Timer = get_node("JumpTimer")
 var kickoff_timer: Timer = Timer.new()
 var kickoff_right: bool = false
+@onready var dash_timer: Timer = get_node("DashTimer")
+var dash_right: bool = false
 
 func _ready() -> void:
 	coy_timer.wait_time = coyote_time
@@ -38,8 +45,10 @@ func _ready() -> void:
 	jump_timer.wait_time = jump_vel.max_domain
 	
 	kickoff_timer.wait_time = wall_kickoff.max_domain
-	kickoff_timer.one_shot =true
+	kickoff_timer.one_shot = true
 	add_child(kickoff_timer)
+	
+	dash_timer.wait_time = dash_profile.max_domain
 
 func _input(event: InputEvent) -> void:
 	if event.is_action("move_left"):
@@ -63,6 +72,11 @@ func _input(event: InputEvent) -> void:
 			jump_timer.stop()
 			jumpMove = false
 		return 
+	
+	if event.is_action("dash"):
+		if Input.is_action_just_pressed("dash"):
+			dashMove = true
+		return
 	
 
 func process_jump() -> void:
@@ -100,6 +114,16 @@ func process_movement(delta) -> void:
 	if jump_grace_timer.time_left > 0 && !jump_grace_timer.is_stopped():
 		process_jump()
 	
+	# currently dash is only possible while moving
+	# if player gains directionality later, this should be updated
+	if dashMove && velocity.x != 0.0:
+		dash_right = velocity.x > 0
+		frozen_velocity = velocity
+		dash_timer.start()
+		dashMove = false
+		dashing = true
+		velocity = Vector2.ZERO
+	
 
 func calc_friction(delta) -> float:
 	if !isMoving or abs(velocity.x)>max_run_speed:
@@ -115,7 +139,7 @@ func velocity_decay() -> void:
 	else:
 		velocity.x = max(0, velocity.x-cur_friction)
 
-func jump_decay(delta) -> void:
+func handle_jump(delta) -> void:
 	if jump_timer.time_left > 0 && !jump_timer.is_stopped():
 		var time = jump_vel.max_domain - jump_timer.time_left
 		velocity.y -= jump_vel.sample(time)*delta
@@ -123,7 +147,7 @@ func jump_decay(delta) -> void:
 			jump_timer.stop()
 
 
-func kickoff_decay(delta) -> void:
+func handle_kickoff(delta) -> void:
 	if kickoff_timer.time_left > 0 && !kickoff_timer.is_stopped():
 		var time = wall_kickoff.max_domain - kickoff_timer.time_left
 		if kickoff_right:
@@ -132,24 +156,44 @@ func kickoff_decay(delta) -> void:
 			velocity.x -= wall_kickoff.sample(time) * delta
 		velocity.y -= wall_kickoff.sample(time) * delta
 
+func handle_dash(delta) -> void:
+	if dashing:
+		if is_on_wall():
+			stop_dash()
+			return
+		
+		var time = dash_timer.wait_time - dash_timer.time_left
+		var a = dash_profile.sample(time) * delta * (1.0 if dash_right else -1.0)
+		velocity.x += a
 
 
 func _physics_process(delta) -> void:
+	if dashing:
+		dashMove = false
+	
 	process_movement(delta)
 	
 	if is_on_floor():
 		coy_timer.start()
 	
-	jump_decay(delta)
-	kickoff_decay(delta)
+	handle_jump(delta)
+	handle_kickoff(delta)
+	handle_dash(delta)
 	
 	#wall glide
 	if is_on_wall_only() && velocity.y>0:
 		velocity.y = wall_slide
-	else:
+	elif !dashing:
 		velocity.y += gravity * delta
 		
 	cur_friction = calc_friction(delta)
 	velocity_decay()
 	
 	move_and_slide()
+
+func stop_dash() -> void:
+	if dashing:
+		dashing = false
+
+func _on_dash_timer_timeout() -> void:
+	stop_dash()

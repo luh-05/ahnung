@@ -8,3 +8,4 @@ follow_margin = 200.0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1891717826]
 zoom = Vector2(1.5, 1.5)
+limit_enabled = false
