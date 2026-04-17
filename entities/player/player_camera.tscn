@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dnlx2p6kil37y"]
+
+[ext_resource type="Script" uid="uid://hlqe6lijh1w2" path="res://entities/player/player_camera.gd" id="1_lky0s"]
+
+[node name="PlayerCamera" type="Node2D" unique_id=812693868]
+script = ExtResource("1_lky0s")
+follow_margin = 200.0
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1891717826]
+zoom = Vector2(1.5, 1.5)

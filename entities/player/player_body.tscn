@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://d3b52v8fr06wt"]
+
+[ext_resource type="Script" uid="uid://pnb3gt86pkcg" path="res://entities/player/player.gd" id="1_symyc"]
+[ext_resource type="Script" uid="uid://nvv8tc3id4pu" path="res://entities/player/debug.gd" id="2_abrql"]
+[ext_resource type="Script" uid="uid://dfxc4wjf82xb" path="res://entities/player/sprite.gd" id="2_cgs3i"]
+[ext_resource type="Texture2D" uid="uid://b85s4d67iehjd" path="res://assets/entities/player/main-Sheet.png" id="2_ejhrd"]
+[ext_resource type="PackedScene" uid="uid://c1i17sdxy1kgw" path="res://entities/player/debug_ui/debug_ui.tscn" id="3_sglur"]
+
+[sub_resource type="Curve" id="Curve_0437v"]
+_limits = [0.0, 6000.0, 0.0, 700.0]
+_data = [Vector2(0, 5000), 0.0, 0.0, 0, 0, Vector2(500, 5000), 0.0, 0.0, 0, 0, Vector2(620, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_cgs3i"]
+_limits = [0.0, 20000.0, 0.0, 0.1]
+_data = [Vector2(0, 16280.886), 0.0, 0.0, 0, 0, Vector2(0.035161287, 15056.179), 0.0, 0.0, 0, 0, Vector2(0.062258057, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_w5sqq"]
+_limits = [0.0, 20000.0, 0.0, 0.1]
+_data = [Vector2(0, 14421.328), 0.0, 0.0, 0, 0, Vector2(0.0283871, 11209.364), 0.0, 0.0, 0, 0, Vector2(0.052653484, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_uokb1"]
+_limits = [0.0, 1.0, 0.0, 0.103225805]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.01431842, 0), 0.0, 0.0, 0, 0, Vector2(0.103225805, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cgs3i"]
+atlas = ExtResource("2_ejhrd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w5sqq"]
+atlas = ExtResource("2_ejhrd")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uokb1"]
+atlas = ExtResource("2_ejhrd")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amj2m"]
+atlas = ExtResource("2_ejhrd")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m54e6"]
+atlas = ExtResource("2_ejhrd")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_58w72"]
+atlas = ExtResource("2_ejhrd")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s0ucb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cgs3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w5sqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uokb1")
+}, {
+"duration": 1.5,
+"texture": SubResource("AtlasTexture_amj2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m54e6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_58w72")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfv1e"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_symyc"]
+material = SubResource("StandardMaterial3D_sfv1e")
+radius = 10.0
+height = 20.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_abrql"]
+size = Vector2(16.5, 12.5)
+
+[node name="PlayerBody" type="CharacterBody2D" unique_id=1022027543]
+scale = Vector2(2, 2)
+script = ExtResource("1_symyc")
+run_accel = SubResource("Curve_0437v")
+max_run_speed = 300.0
+friction = 8000.0
+air_friction = 800.0
+jump_vel = SubResource("Curve_cgs3i")
+wall_kickoff = SubResource("Curve_w5sqq")
+walljump_strength = 600.0
+controllability = SubResource("Curve_uokb1")
+
+[node name="Sprite" type="Node2D" parent="." unique_id=1126119417]
+script = ExtResource("2_cgs3i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=1327097225]
+texture_filter = 1
+scale = Vector2(0.625, 0.625)
+sprite_frames = SubResource("SpriteFrames_s0ucb")
+frame_progress = 0.277
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1664352351]
+visible = false
+mesh = SubResource("SphereMesh_symyc")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1282689492]
+position = Vector2(-0.25, 3.75)
+shape = SubResource("RectangleShape2D_abrql")
+
+[node name="Debug" type="Node2D" parent="." unique_id=1859659441 node_paths=PackedStringArray("player", "vel_arrow")]
+script = ExtResource("2_abrql")
+player = NodePath("..")
+vel_arrow = NodePath("Line2D")
+
+[node name="Line2D" type="Line2D" parent="Debug" unique_id=179068288]
+position = Vector2(0.5, 4.5)
+scale = Vector2(0.9954144, 1)
+points = PackedVector2Array(0, 0, 15, 0)
+width = 1.5
+default_color = Color(0, 0.9411765, 0, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=947018624]
+
+[node name="DebugUi" parent="CanvasLayer" unique_id=293449245 node_paths=PackedStringArray("player") instance=ExtResource("3_sglur")]
+player = NodePath("../..")
+
+[node name="CoyoteTimer" type="Timer" parent="." unique_id=1115985845]
+one_shot = true
+
+[node name="JumpGraceTimer" type="Timer" parent="." unique_id=1354432765]
+one_shot = true
+
+[node name="JumpTimer" type="Timer" parent="." unique_id=360931541]
+wait_time = 0.1
+one_shot = true

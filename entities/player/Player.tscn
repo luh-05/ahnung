@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bwnty21ej8dtm"]
+
+[ext_resource type="PackedScene" uid="uid://d3b52v8fr06wt" path="res://entities/player/player_body.tscn" id="1_453mm"]
+[ext_resource type="PackedScene" uid="uid://dnlx2p6kil37y" path="res://entities/player/player_camera.tscn" id="2_l3c03"]
+
+[node name="Player" type="Node2D" unique_id=1261756041]
+
+[node name="PlayerBody" parent="." unique_id=1022027543 instance=ExtResource("1_453mm")]
+
+[node name="PlayerCamera" parent="." unique_id=812693868 node_paths=PackedStringArray("leader") instance=ExtResource("2_l3c03")]
+leader = NodePath("../PlayerBody")
