@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cvt2sbe7dg5tb" path="res://assets/Tilesets/Overworld.png" id="1_wbyae"]
 [ext_resource type="Texture2D" uid="uid://bwcf67m75fkck" path="res://assets/Tilesets/Rock.png" id="2_s1upf"]
+[ext_resource type="Texture2D" uid="uid://be4vw33jeav77" path="res://assets/Tilesets/plattform.png" id="3_fuds8"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_wbyae"]
 tile_data = PackedInt32Array(0, 131072, 0, 65536, 131072, 2, 1, 131072, 0, 65537, 131072, 2, 2, 131072, 0, 65538, 131072, 2, 3, 131072, 0, 65539, 131072, 2, 4, 131072, 0, 65540, 131072, 2)
@@ -238,6 +239,61 @@ texture = ExtResource("2_s1upf")
 6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 6:3/0/terrains_peering_bit/top_side = 1
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mx5r2"]
+texture = ExtResource("3_fuds8")
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 2
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+1:1/0/terrains_peering_bit/right_side = 2
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 2
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+2:1/0/terrains_peering_bit/right_side = 2
+2:1/0/terrains_peering_bit/left_side = 2
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 2
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+3:1/0/terrains_peering_bit/right_side = 2
+3:1/0/terrains_peering_bit/left_side = 2
+4:1/0 = 0
+4:1/0/terrain_set = 0
+4:1/0/terrain = 2
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+4:1/0/terrains_peering_bit/right_side = 2
+4:1/0/terrains_peering_bit/left_side = 2
+5:1/0 = 0
+5:1/0/terrain_set = 0
+5:1/0/terrain = 2
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+5:1/0/terrains_peering_bit/right_side = 2
+5:1/0/terrains_peering_bit/left_side = 2
+6:1/0 = 0
+6:1/0/terrain_set = 0
+6:1/0/terrain = 2
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+6:1/0/terrains_peering_bit/right_side = 2
+6:1/0/terrains_peering_bit/left_side = 2
+7:1/0 = 0
+7:1/0/terrain_set = 0
+7:1/0/terrain = 2
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+7:1/0/terrains_peering_bit/right_side = 2
+7:1/0/terrains_peering_bit/left_side = 2
+8:1/0 = 0
+8:1/0/terrain_set = 0
+8:1/0/terrain = 2
+8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+8:1/0/terrains_peering_bit/right_side = 2
+8:1/0/terrains_peering_bit/left_side = 2
+9:1/0 = 0
+9:1/0/terrain_set = 0
+9:1/0/terrain = 2
+9:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 0, -8, 0)
+9:1/0/terrains_peering_bit/left_side = 2
+
 [resource]
 physics_layer_0/collision_layer = 3
 physics_layer_0/collision_mask = 3
@@ -246,6 +302,9 @@ terrain_set_0/terrain_0/name = "Ground"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 terrain_set_0/terrain_1/name = "Underground"
 terrain_set_0/terrain_1/color = Color(0.5, 0.4375, 0.25, 1)
+terrain_set_0/terrain_2/name = "Wooden Platform"
+terrain_set_0/terrain_2/color = Color(0.46875, 0.5, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_s1upf")
 sources/1 = SubResource("TileSetAtlasSource_fuds8")
+sources/2 = SubResource("TileSetAtlasSource_mx5r2")
 pattern_0 = SubResource("TileMapPattern_wbyae")

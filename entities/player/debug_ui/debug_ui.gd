@@ -13,5 +13,5 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	#player_speed_lbl.text = "Player Movement: " + str(player.current_move_velocity)
-	vel_lbl.text = "Player general Velocity: " + str(player.velocity)
+	vel_lbl.text = "Player Velocity: " + str(player.velocity)
 	fric_lbl.text = "Player Friction: " + str(player.cur_friction)
