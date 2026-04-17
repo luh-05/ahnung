@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
+@onready var walljump_area: Area2D = get_node("WalljumpArea")
+
 #movement
 @export var gravity := 2500.0
 @export var wall_slide := 300.0
@@ -20,7 +22,6 @@ class_name Player
 @export var dash_time: float = 1.3
 
 var cur_friction
-var frozen_velocity: Vector2 # for dash
 var dashing: bool = false
 
 #Movement Variables
@@ -88,7 +89,14 @@ func process_jump() -> void:
 		return
 	
 	# walljump
-	if is_on_wall_only():
+	var intersecting_wall: bool = false
+	if walljump_area.has_overlapping_bodies():
+		for e in walljump_area.get_overlapping_bodies():
+			var e_type = typeof(e)
+			if e_type == typeof(StaticBody2D) || e_type == typeof(TileMapLayer):
+				intersecting_wall = true
+				break
+	if intersecting_wall:
 		velocity = Vector2.ZERO
 		coy_timer.stop()
 		
@@ -118,7 +126,6 @@ func process_movement(delta) -> void:
 	# if player gains directionality later, this should be updated
 	if dashMove && velocity.x != 0.0:
 		dash_right = velocity.x > 0
-		frozen_velocity = velocity
 		dash_timer.start()
 		dashMove = false
 		dashing = true

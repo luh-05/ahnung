@@ -89,7 +89,10 @@ radius = 10.0
 height = 20.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_abrql"]
-size = Vector2(16.5, 12.5)
+size = Vector2(16.5, 12.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cgs3i"]
+size = Vector2(18, 2)
 
 [node name="PlayerBody" type="CharacterBody2D" unique_id=1022027543]
 scale = Vector2(2, 2)
@@ -120,8 +123,16 @@ mesh = SubResource("SphereMesh_symyc")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1282689492]
-position = Vector2(-0.25, 3.75)
+position = Vector2(0, 3.625)
 shape = SubResource("RectangleShape2D_abrql")
+
+[node name="WalljumpArea" type="Area2D" parent="." unique_id=1026256386]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WalljumpArea" unique_id=1771592609]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_cgs3i")
 
 [node name="Debug" type="Node2D" parent="." unique_id=1859659441 node_paths=PackedStringArray("player", "vel_arrow")]
 script = ExtResource("2_abrql")
