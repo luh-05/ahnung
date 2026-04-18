@@ -6,10 +6,10 @@
 script = ExtResource("1_lky0s")
 follow_strength = 0.95
 follow_margin = 20.0
-velocity_factor_lerp = 0.309
-velocity_factor_zoom = 0.001
+base_zoom = 1.73
+distance_factor_lerp = 0.625
 zoom_strength = 0.755
-lookahead_factor = 3.805
+lookahead_factor = 3.835
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1891717826]
 zoom = Vector2(1.5, 1.5)
