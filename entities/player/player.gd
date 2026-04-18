@@ -40,6 +40,14 @@ var kickoff_right: bool = false
 @onready var dash_timer: Timer = get_node("DashTimer")
 var dash_right: bool = false
 
+# state
+var coin_count: int = 0
+signal pickup_signal(coin_count)
+
+func add_coin(value):
+	coin_count += value
+	pickup_signal.emit(coin_count)
+
 func _ready() -> void:
 	coy_timer.wait_time = coyote_time
 	jump_grace_timer.wait_time = jump_grace_time

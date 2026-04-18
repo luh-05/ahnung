@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d3b52v8fr06wt" path="res://entities/player/player_body.tscn" id="1_453mm"]
 [ext_resource type="PackedScene" uid="uid://dnlx2p6kil37y" path="res://entities/player/player_camera.tscn" id="2_l3c03"]
+[ext_resource type="PackedScene" uid="uid://cisxwu0dsjy3v" path="res://entities/player/hud/hud.tscn" id="3_l3c03"]
 
 [node name="Player" type="Node2D" unique_id=1261756041]
 
@@ -9,3 +10,10 @@
 
 [node name="PlayerCamera" parent="." unique_id=812693868 node_paths=PackedStringArray("leader") instance=ExtResource("2_l3c03")]
 leader = NodePath("../PlayerBody")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1926360341]
+
+[node name="Hud" parent="CanvasLayer" unique_id=1046582259 node_paths=PackedStringArray("player") instance=ExtResource("3_l3c03")]
+player = NodePath("../../PlayerBody")
+
+[connection signal="pickup_signal" from="PlayerBody" to="CanvasLayer/Hud" method="_on_player_body_pickup_signal"]

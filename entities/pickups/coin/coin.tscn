@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://kqd5716haw6n"]
+
+[ext_resource type="Script" uid="uid://c6o3nu5dwmwid" path="res://entities/pickups/coin/coin.gd" id="1_ssecw"]
+[ext_resource type="SpriteFrames" uid="uid://fo3f13ookxdg" path="res://assets/entities/pickups/coin_frames.tres" id="2_ssecw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n4o6a"]
+radius = 4.0
+
+[node name="Coin" type="Node2D" unique_id=832455354 groups=["pickup"]]
+script = ExtResource("1_ssecw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=196525753]
+sprite_frames = ExtResource("2_ssecw")
+frame_progress = 0.04850227
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=745345988]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=593429158]
+shape = SubResource("CircleShape2D_n4o6a")
+
+[connection signal="body_entered" from="PickupArea" to="." method="_on_pickup_area_body_entered"]

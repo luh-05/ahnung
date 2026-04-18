@@ -26,6 +26,10 @@ window/stretch/scale_mode="integer"
 
 project/assembly_name="Ahnung"
 
+[global_group]
+
+pickup="All player pickups"
+
 [input]
 
 move_right={

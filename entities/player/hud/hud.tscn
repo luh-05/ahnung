@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://cisxwu0dsjy3v"]
+
+[ext_resource type="Script" uid="uid://bp4424ti5w5k3" path="res://entities/player/hud/hud.gd" id="1_6tyv5"]
+[ext_resource type="SpriteFrames" uid="uid://fo3f13ookxdg" path="res://assets/entities/pickups/coin_frames.tres" id="2_vflup"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2kc0w"]
+font_size = 55
+
+[node name="Hud" type="Control" unique_id=1046582259]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6tyv5")
+
+[node name="CoinDisplay" type="Control" parent="." unique_id=256453981]
+layout_mode = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -512.0
+offset_bottom = 192.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CoinDisplay" unique_id=230886395]
+position = Vector2(132, 76.000015)
+scale = Vector2(5.5000024, 5.5000024)
+sprite_frames = ExtResource("2_vflup")
+
+[node name="Label" type="Label" parent="CoinDisplay" unique_id=2081612363]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.266
+anchor_top = 0.37500003
+anchor_right = 0.266
+anchor_bottom = 0.37500003
+offset_left = 39.808
+offset_top = -40.000008
+offset_right = 231.808
+offset_bottom = 31.999992
+text = "0"
+label_settings = SubResource("LabelSettings_2kc0w")

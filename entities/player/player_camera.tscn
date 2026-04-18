@@ -4,7 +4,12 @@
 
 [node name="PlayerCamera" type="Node2D" unique_id=812693868]
 script = ExtResource("1_lky0s")
-follow_margin = 200.0
+follow_strength = 0.95
+follow_margin = 20.0
+velocity_factor_lerp = 0.309
+velocity_factor_zoom = 0.001
+zoom_strength = 0.755
+lookahead_factor = 3.805
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1891717826]
 zoom = Vector2(1.5, 1.5)

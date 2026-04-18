@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dfxc4wjf82xb" path="res://entities/player/sprite.gd" id="2_cgs3i"]
 [ext_resource type="Texture2D" uid="uid://b85s4d67iehjd" path="res://assets/entities/player/main-Sheet.png" id="2_ejhrd"]
 [ext_resource type="PackedScene" uid="uid://c1i17sdxy1kgw" path="res://entities/player/debug_ui/debug_ui.tscn" id="3_sglur"]
+[ext_resource type="Texture2D" uid="uid://v0im23afcpsn" path="res://assets/entities/player/Jump-Sheet.png" id="4_w5sqq"]
 
 [sub_resource type="Curve" id="Curve_0437v"]
 _limits = [0.0, 6000.0, 0.0, 700.0]
@@ -55,6 +56,30 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("2_ejhrd")
 region = Rect2(160, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_s0ucb"]
+atlas = ExtResource("4_w5sqq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4xi8q"]
+atlas = ExtResource("4_w5sqq")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8n00p"]
+atlas = ExtResource("4_w5sqq")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_14la3"]
+atlas = ExtResource("4_w5sqq")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptn31"]
+atlas = ExtResource("4_w5sqq")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcwd1"]
+atlas = ExtResource("4_w5sqq")
+region = Rect2(160, 0, 32, 32)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_s0ucb"]
 animations = [{
 "frames": [{
@@ -79,6 +104,34 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s0ucb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4xi8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8n00p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_14la3")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptn31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcwd1")
+}],
+"loop": false,
+"name": &"landing",
+"speed": 5.0
 }]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfv1e"]
@@ -96,6 +149,8 @@ size = Vector2(18, 2)
 
 [node name="PlayerBody" type="CharacterBody2D" unique_id=1022027543]
 scale = Vector2(2, 2)
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("1_symyc")
 run_accel = SubResource("Curve_0437v")
 max_run_speed = 300.0
@@ -108,14 +163,14 @@ controllability = SubResource("Curve_uokb1")
 dash_profile = SubResource("Curve_amj2m")
 dash_time = 0.27
 
-[node name="Sprite" type="Node2D" parent="." unique_id=1126119417]
+[node name="Sprite" type="Node2D" parent="." unique_id=1126119417 node_paths=PackedStringArray("player")]
 script = ExtResource("2_cgs3i")
+player = NodePath("..")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprite" unique_id=1327097225]
 texture_filter = 1
 scale = Vector2(0.625, 0.625)
 sprite_frames = SubResource("SpriteFrames_s0ucb")
-frame_progress = 0.0022162667
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1664352351]
 visible = false
@@ -164,4 +219,5 @@ one_shot = true
 [node name="DashTimer" type="Timer" parent="." unique_id=494005186]
 one_shot = true
 
+[connection signal="animation_finished" from="Sprite/AnimatedSprite2D" to="Sprite" method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
